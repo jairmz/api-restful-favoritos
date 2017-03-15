@@ -22,7 +22,15 @@ function getFavorito(req,res){
 }
 
 function getFavoritos(req,res){
-
+	Favorito.find({}, (err,favoritos) => {
+		if (err) {
+			res.status(500).send({message: `Error al devolver los marcadores`});
+		}
+		if (!favoritos) {
+			res.status(404).send({message: `No hay marcadores`});	
+		}
+		res.status(200).send({favoritos});
+	});
 }
 
 function saveFavorito(req,res){
@@ -56,6 +64,7 @@ function deleteFavorito(req,res){
 module.exports = {
 	prueba,
 	getFavorito,
+	getFavoritos,
 	saveFavorito,
 	getFavoritos, 
 	updateFavorito,
