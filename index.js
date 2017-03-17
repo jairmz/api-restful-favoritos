@@ -5,8 +5,8 @@ var app = require('./app');
 var port = process.env.PORT || 3678;
 
 
-mongoose.connect('mongodb://localhost:27017/cursofavoritos',(err,res) => {
-/*mongoose.connect('mongodb://root:testmongo@ds131510.mlab.com:31510/apifavoritos',(err,res) => {*/
+/*mongoose.connect('mongodb://localhost:27017/cursofavoritos',(err,res) => {*/
+mongoose.connect('mongodb://root:testmongo@ds131510.mlab.com:31510/apifavoritos',(err,res) => {
 	if(err) {
 		throw err;
 	} else {

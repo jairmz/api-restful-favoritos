@@ -21,11 +21,13 @@ function getFavorito(req,res){
 	Favorito.findById(favoritoId, function(err,favorito){
 		if (err) {
 			res.status(500).send({message: `Error al devolver el marcadore`});
+		} else {
+			if (!favorito) {
+				res.status(404).send({message: `No hay marcadores`});	
+			} else {
+				res.status(200).send({favorito});
+			}
 		}
-		if (!favorito) {
-			res.status(404).send({message: `No hay marcadores`});	
-		}
-		res.status(200).send({favorito});
 	});
 }
 
@@ -33,11 +35,13 @@ function getFavoritos(req,res){
 	Favorito.find({}).sort('-title').exec((err,favoritos) => {
 		if (err) {
 			res.status(500).send({message: `Error al devolver los marcadores`});
-		}
-		if (!favoritos) {
+		} else {
+			if (!favoritos) {
 			res.status(404).send({message: `No hay marcadores`});	
+			} else {
+				res.status(200).send({favoritos});
+			}
 		}
-		res.status(200).send({favoritos});
 	});
 }
 
@@ -52,8 +56,9 @@ function saveFavorito(req,res){
 	favorito.save((err, favoritoStored) => {
 		if(err) {
 			res.status(500).send({message: `Error al guardar el marcador`});
+		} else {
+			res.status(200).send({favorito: favoritoStored});
 		}
-		res.status(200).send({favorito: favoritoStored});
 	});
 }
 
@@ -64,8 +69,9 @@ function updateFavorito(req,res){
 	Favorito.findByIdAndUpdate(favoritoId, update, (err,favoritoUpdated) => {
 		if(err) {
 			res.status(500).send({message: `Error al actualizar el marcador`});
+		} else {
+			res.status(200).send({favorito: favoritoUpdated});	
 		}
-		res.status(200).send({favorito: favoritoUpdated});
 	});
 }
 
